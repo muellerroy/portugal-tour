@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>Portugal Camper-Tour</title>
+<meta name="description" content="Reisebegleiter für die 4-wöchige Portugal Camper-Tour: Route, Spots, Wetter, Notizen.">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#5B84AC">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PT Camper">
+
+<!-- Fonts (fällt offline auf System-Schrift zurück) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Leaflet (Karte) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <div class="topbar">
+    <div class="titles">
+      <h1 id="topbar-title">Portugal Camper-Tour</h1>
+      <div class="subtitle" id="topbar-subtitle">4 Wochen · flexibel unterwegs</div>
+    </div>
+    <button class="icon-btn" onclick="showScreen('settings')" aria-label="Einstellungen">⚙️</button>
+  </div>
+
+  <main>
+    <section id="screen-home" class="screen"></section>
+
+    <section id="screen-map" class="screen">
+      <div class="map-wrap" style="height: calc(100vh - 128px); height: calc(100dvh - 128px);">
+        <div id="map"></div>
+        <div class="map-legend" id="map-legend">
+          <button class="active" data-cat="all">Alle</button>
+          <button data-cat="natur">🌿</button>
+          <button data-cat="genuss">🍷</button>
+          <button data-cat="kultur">🏛️</button>
+          <button data-cat="camping">🚐</button>
+        </div>
+        <div class="route-toggle" id="route-toggle">
+          <button class="active" data-layer="planned" onclick="toggleMapLayer('planned')">— geplant</button>
+          <button class="active" data-layer="driven" onclick="toggleMapLayer('driven')">— gefahren</button>
+        </div>
+        <button class="icon-btn locate-btn" id="locate-btn" title="Meinen Standort anzeigen">📍</button>
+        <button class="icon-btn add-spot-btn" id="add-spot-btn" title="Eigenen Ort hinzufügen">＋</button>
+        <div class="route-info" id="route-info"></div>
+        <div class="offline-banner">📡 Offline – gespeicherte Kartenausschnitte</div>
+      </div>
+    </section>
+
+    <section id="screen-regions" class="screen"></section>
+    <section id="screen-journal" class="screen"></section>
+    <section id="screen-settings" class="screen"></section>
+  </main>
+
+  <nav class="tabbar">
+    <button class="tab" data-screen="home"><span class="tab-icon">🧭</span>Übersicht</button>
+    <button class="tab" data-screen="map"><span class="tab-icon">🗺️</span>Karte</button>
+    <button class="tab" data-screen="regions"><span class="tab-icon">📍</span>Regionen</button>
+    <button class="tab" data-screen="journal"><span class="tab-icon">📔</span>Tagebuch</button>
+  </nav>
+
+  <div class="sheet-backdrop" id="sheet-backdrop" onclick="closeSheet()"></div>
+  <div class="sheet" id="sheet"></div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="data/data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
